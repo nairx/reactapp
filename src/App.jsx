@@ -14,7 +14,7 @@ function App() {
       <h1>React App</h1>
       <div>
         {products && products.map(value=>(
-          <li key={value.id}>{value.id}-{value.name}-{value.price}</li>
+          <li key={value._id}>{value._id}-{value.name}-{value.price}</li>
         ))}
       </div>
     </>
