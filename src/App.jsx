@@ -6,14 +6,17 @@ import axios from "axios";
 function App() {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
+  const [flag,setFlag] = useState(false)
   useEffect(() => {
     fetch("http://localhost:8081/products").then((res) =>
       res.json().then((data) => setProducts(data))
     );
-  }, []);
+  }, [flag]);
 
   const addProduct = async () => {
     axios.post("http://localhost:8081/products", product);
+    console.log(flag)
+    setFlag(!flag)
   };
   return (
     <>
