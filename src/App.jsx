@@ -6,7 +6,7 @@ import axios from "axios";
 function App() {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState({});
-  const [flag,setFlag] = useState(false)
+  const [flag, setFlag] = useState(false);
   useEffect(() => {
     fetch("http://localhost:8081/products").then((res) =>
       res.json().then((data) => setProducts(data))
@@ -15,8 +15,13 @@ function App() {
 
   const addProduct = async () => {
     axios.post("http://localhost:8081/products", product);
-    console.log(flag)
-    setFlag(!flag)
+    console.log(flag);
+    setFlag(!flag);
+  };
+
+  const deleteProduct = async (id) => {
+    axios.delete("http://localhost:8081/products/" + id);
+    setFlag(!flag);
   };
   return (
     <>
@@ -37,7 +42,8 @@ function App() {
         {products &&
           products.map((value) => (
             <li key={value._id}>
-              {value._id}-{value.name}-{value.price}
+              {value._id}-{value.name}-{value.price}-
+              <button onClick={() => deleteProduct(value._id)}>Delete</button>
             </li>
           ))}
       </div>
