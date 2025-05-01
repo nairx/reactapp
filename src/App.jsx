@@ -14,13 +14,14 @@ function App() {
   }, [flag]);
 
   const addProduct = async () => {
-    axios.post("http://localhost:8081/products", product);
+    await axios.post("http://localhost:8081/products", product);
     console.log(flag);
     setFlag(!flag);
   };
 
   const deleteProduct = async (id) => {
-    axios.delete("http://localhost:8081/products/" + id);
+    console.log(id)
+    await axios.delete("http://localhost:8081/products/" + id);
     setFlag(!flag);
   };
   return (
