@@ -1,21 +1,42 @@
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import { useEffect, useState } from "react";
+import axios from "axios";
 // import './App.css'
 function App() {
   const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState({});
   useEffect(() => {
     fetch("http://localhost:8081/products").then((res) =>
       res.json().then((data) => setProducts(data))
     );
   }, []);
+
+  const addProduct = async () => {
+    axios.post("http://localhost:8081/products", product);
+  };
   return (
     <>
       <h1>React App</h1>
       <div>
-        {products && products.map(value=>(
-          <li key={value._id}>{value._id}-{value.name}-{value.price}</li>
-        ))}
+        <input
+          placeholder="Product Name"
+          onChange={(e) => setProduct({ ...product, name: e.target.value })}
+        ></input>
+        <input
+          type="number"
+          placeholder="Price"
+          onChange={(e) => setProduct({ ...product, price: e.target.value })}
+        ></input>
+        <button onClick={addProduct}>Add</button>
+      </div>
+      <div>
+        {products &&
+          products.map((value) => (
+            <li key={value._id}>
+              {value._id}-{value.name}-{value.price}
+            </li>
+          ))}
       </div>
     </>
   );
